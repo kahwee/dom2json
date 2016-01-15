@@ -1,12 +1,12 @@
 const istanbul = require('istanbul')
 
 module.exports = function (config) {
-  var headless = process.env.USER === 'jenkins'
+  var headless = process.env.CI === "true"
   var preprocessors = {}
   preprocessors['./*.js'] = ['coverage']
   preprocessors['./tests/**/*-spec.js'] = ['browserify']
 
-  var browsers = headless ? ['PhantomJS'] : ['Chrome']
+  var browsers = process.env.CI ? ['Firefox'] : ['Chrome']
 
   config.set({
     basePath: '.',
