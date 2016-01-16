@@ -3,6 +3,7 @@
 This converts DOM documents to JSON. It was intended to be used for XML and now made to be generic to accomodate HTML documents as well.
 
 [![Build Status](https://travis-ci.org/kahwee/dom2json.svg?branch=master)](https://travis-ci.org/kahwee/dom2json)
+[![npm version](https://badge.fury.io/js/dom2json.svg)](https://badge.fury.io/js/dom2json)
 [![bitHound Overall Score](https://www.bithound.io/github/kahwee/dom2json/badges/score.svg)](https://www.bithound.io/github/kahwee/dom2json)
 
 # Example
