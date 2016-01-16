@@ -1,7 +1,7 @@
 const istanbul = require('istanbul')
 
 module.exports = function (config) {
-  var headless = process.env.CI === "true"
+  var headless = process.env.CI === 'true'
   var preprocessors = {}
   preprocessors['./*.js'] = ['coverage']
   preprocessors['./tests/**/*-spec.js'] = ['browserify']
