@@ -1,8 +1,8 @@
 import getAttributes from '../src/getAttributes'
 
-describe('getAttributes', function() {
+describe('getAttributes', function () {
   let div
-  before(function(done) {
+  before(function (done) {
     div = document.createElement('div')
     div.id = 'getAttributes'
     div.className = 'name-of-class'
@@ -21,41 +21,40 @@ describe('getAttributes', function() {
     done()
   })
 
-  describe('<div id="getAttributes" class="name-of-class"></div>', function() {
+  describe('<div id="getAttributes" class="name-of-class"></div>', function () {
     let attrs
 
-    before(function() {
+    before(function () {
       attrs = getAttributes(div)
     })
 
-    it('should generates correct key-value map', function() {
+    it('should generates correct key-value map', function () {
       expect(attrs.id).to.equal(div.id)
       expect(attrs.class).to.equal(div.className)
     })
 
-    it('should have correct length', function() {
+    it('should have correct length', function () {
       expect(Object.keys(attrs)).to.be.length(2)
     })
   })
 
-  describe('<span></span>', function() {
+  describe('<span></span>', function () {
     let attrs
     let div = document.createElement('div')
     div.id = 'span-test-case'
     div.innerHTML = '<span></span>'
     document.body.appendChild(div)
 
-    before(function() {
+    before(function () {
       attrs = getAttributes(div.querySelector('span'))
     })
 
-    it('should generates correct key-value map', function() {
+    it('should generates correct key-value map', function () {
       expect(attrs).to.be.empty
     })
 
-    it('should have correct length', function() {
+    it('should have correct length', function () {
       expect(Object.keys(attrs)).to.be.length(0)
     })
   })
-
 })

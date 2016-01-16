@@ -41,5 +41,16 @@
     "standard": "^5.4.1",
     "watchify": "^3.7.0"
   },
+  "standard": {
+    "globals": [
+      "DOMParser",
+      "describe",
+      "expect",
+      "before",
+      "after",
+      "$",
+      "it"
+    ]
+  },
   "homepage": "https://github.com/kahwee/dom2json#readme"
 }
