@@ -7,7 +7,7 @@ import * as NodeType from './NodeType'
  */
 export default function getAttributes (node) {
   if (node.nodeType !== NodeType.ELEMENT_NODE) {
-    throw new Error('Requires ELEMENT_NODE')
+    throw new Error(`Requires ELEMENT_NODE, this is NodeType ${node.nodeType}`)
   }
   let attrsHash = {}
   const attrs = node.attributes
