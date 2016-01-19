@@ -1,9 +1,10 @@
 {
   "name": "dom2json",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "build": "babel src -d lib",
     "ci": "export CI=true && karma start",
     "lint": "eslint src tests",
     "test": "karma start"
@@ -18,6 +19,7 @@
     "url": "https://github.com/kahwee/dom2json/issues"
   },
   "devDependencies": {
+    "babel-cli": "^6.4.0",
     "babel-core": "^6.4.0",
     "babel-eslint": "^5.0.0-beta6",
     "babel-preset-es2015": "^6.3.13",
