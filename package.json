@@ -57,5 +57,14 @@
       "it"
     ]
   },
-  "homepage": "https://github.com/kahwee/dom2json#readme"
+  "homepage": "https://github.com/kahwee/dom2json#readme",
+  "keywords": [
+    "browser",
+    "xml",
+    "dom",
+    "json",
+    "conversion",
+    "domparser",
+    "parser"
+  ]
 }
