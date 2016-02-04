@@ -1,6 +1,6 @@
 import getProcessingNodeAttributes from '../src/getProcessingNodeAttributes'
-describe('getProcessingNodeAttributes', function() {
-  it('should parse `one="1" two="two" three="3.3"` into the correct array', function() {
+describe('getProcessingNodeAttributes', function () {
+  it('should parse `one="1" two="two" three="3.3"` into the correct array', function () {
     const result = getProcessingNodeAttributes(`one="1" two="two" three="3.3"`)
     expect(result[0][0]).to.equal('one')
     expect(result[0][1]).to.equal('1')

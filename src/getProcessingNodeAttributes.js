@@ -1,7 +1,7 @@
 /**
  * Takes in: one="1" two="two" three="3.3"
  * Output: [["one", "1", "two", "two", "three", "3.3"]]
- * 
+ *
  * @param  {[type]} processingInstructionNodeValue [description]
  * @return {[type]}                                [description]
  */
