@@ -1,5 +1,7 @@
 # dom2json
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kahwee/dom2json.svg)](https://greenkeeper.io/)
+
 This converts DOM documents into a special blend of JSON. It was intended to be used for XML and now made to be generic to accomodate HTML documents as well. Please take a look at usage examples to see if it suits your needs.
 
 [![Build Status](https://travis-ci.org/kahwee/dom2json.svg?branch=master)](https://travis-ci.org/kahwee/dom2json)
