@@ -11,7 +11,7 @@ module.exports = function (config) {
   config.set({
     basePath: '.',
     reporters: ['progress', 'coverage'],
-    frameworks: ['mocha', 'sinon-chai', 'browserify'],
+    frameworks: ['mocha', 'chai', 'browserify'],
     browsers: browsers,
     preprocessors: preprocessors,
     files: [
@@ -23,7 +23,14 @@ module.exports = function (config) {
         [
           'babelify',
           {
-            'presets': ['es2015']
+            'presets': [["env", {
+      "targets": {
+        "browsers": [
+        	"last 2 versions",
+        	"safari >= 7"
+        ]
+      }
+    }]]
           }
         ],
         [
