@@ -1,3 +1,4 @@
+/* eslint no-unused-expressions: "off" */
 import dom2json from '../src'
 const DOMParser2 = require('xmldom').DOMParser
 

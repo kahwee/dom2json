@@ -1,3 +1,4 @@
+/* eslint no-unused-expressions: "off" */
 import dom2json from '../src'
 
 describe('dom2json for browser', function () {

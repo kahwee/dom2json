@@ -1,86 +1,41 @@
-const istanbul = require('istanbul')
-
+const webpack = require('./webpack.config.js')
+const browsers = process.env.CI ? ['ChromeHeadless'] : ['Chrome']
 module.exports = function (config) {
-  var headless = process.env.CI === 'true'
-  var preprocessors = {}
-  preprocessors['./*.js'] = ['coverage']
-  preprocessors['./tests/**/*-spec.js'] = ['browserify']
-
-  var browsers = process.env.CI ? ['Firefox'] : ['Chrome']
-
   config.set({
     basePath: '.',
-    reporters: ['progress', 'coverage'],
-    frameworks: ['mocha', 'chai', 'browserify'],
-    browsers: browsers,
-    preprocessors: preprocessors,
+    frameworks: ['mocha', 'chai'],
     files: [
+      'tests/*-spec.js',
       'tests/**/*-spec.js'
     ],
-    browserify: {
-      debug: true,
-      transform: [
-        [
-          'babelify',
-          {
-            'presets': [["env", {
-      "targets": {
-        "browsers": [
-        	"last 2 versions",
-        	"safari >= 7"
-        ]
-      }
-    }]]
-          }
-        ],
-        [
-          'browserify-istanbul',
-          {
-            ignore: [
-              '**/*.html',
-              '**/*.xml',
-              '**/*.css',
-              '**/*.swf'
-            ],
-            instrumenter: istanbul,
-            instrumenterConfig: {
-              embedSource: true
-            }
-          }
-        ]
-      ],
-      configure: function (bundle) {
-        bundle.on('prebundle', function () {})
+    browsers,
+    webpack,
+    preprocessors: {
+      'tests/*-spec.js': ['webpack'],
+      'tests/**/*-spec.js': ['webpack']
+    },
+    webpackMiddleware: {
+      noInfo: true,
+      stats: {
+        chunks: false
       }
     },
-    client: {
-      mocha: {
-        reporter: 'html',
-        ui: 'bdd'
-      }
-    },
-    junitReporter: {
-      outputFile: '_karma.xml',
-      suite: ''
-    },
+    reporters: ['progress', 'coverage'],
     coverageReporter: {
       dir: 'coverage',
       reporters: [
-        { type: 'lcov',
-          subdir: 'report-lcov'
-        },
         {
-          type: 'cobertura',
-          subdir: '.',
-          file: 'cobertura.xml'
-        }, {
-          absolutePath: true,
-          type: 'html',
-          subdir: '.'
+          type: 'lcov',
+          subdir: 'report-lcov'
         }
       ]
     },
-    singleRun: headless
-  // logLevel: 'DEBUG'
+    client: {
+      mocha: {
+        ui: 'bdd',
+        reporter: 'html'
+      }
+    },
+    singleRun: !!process.env.CI
   })
 }

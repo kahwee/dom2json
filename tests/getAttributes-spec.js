@@ -1,3 +1,4 @@
+/* eslint no-unused-expressions: "off" */
 import getAttributes from '../src/getAttributes'
 
 describe('getAttributes', function () {

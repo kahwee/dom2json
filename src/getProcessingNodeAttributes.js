@@ -7,7 +7,7 @@
  */
 export default function (processingInstructionNodeValue) {
   return processingInstructionNodeValue.split(/\s+/)
-    .map(keyValue => /(\w+)="([\w\d-\.]+)"/.exec(keyValue))
+    .map(keyValue => /(\w+)="([\w\d-.]+)"/.exec(keyValue))
     .filter(arrays => arrays)
     .map(regexValues => regexValues.splice(-2))
 }
