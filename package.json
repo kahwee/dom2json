@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/kahwee/dom2json.git"
   },
-  "author": "",
+  "author": "KahWee Teng <t@kw.sg>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kahwee/dom2json/issues"
@@ -50,14 +50,19 @@
     "xmldom": "^0.1.22"
   },
   "standard": {
+    "ignore": [
+      "/dist",
+      "/coverage",
+      "/reports",
+      "/lib"
+    ],
+    "env": [
+      "mocha"
+    ],
     "globals": [
       "DOMParser",
-      "describe",
       "expect",
-      "before",
-      "after",
-      "$",
-      "it"
+      "$"
     ]
   },
   "homepage": "https://github.com/kahwee/dom2json#readme",
