@@ -25,7 +25,7 @@
     "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-env": "^1.5.2",
     "chai": "^4.0.2",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.5",
     "cross-env": "^5.0.1",
     "gulp": "^3.9.1",
     "istanbul": "^0.4.5",
