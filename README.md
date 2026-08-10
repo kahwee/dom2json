@@ -1,104 +1,86 @@
 # dom2json
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/kahwee/dom2json.svg)](https://greenkeeper.io/)
+Convert a DOM `Document` into a compact JSON representation. Repeated sibling elements are grouped into arrays for convenient access.
 
-This converts DOM documents into a special blend of JSON. It was intended to be used for XML and now made to be generic to accomodate HTML documents as well. Please take a look at usage examples to see if it suits your needs.
+> This representation is intentionally lossy: sibling ordering is not preserved across different element names.
 
-[![Build Status](https://travis-ci.org/kahwee/dom2json.svg?branch=master)](https://travis-ci.org/kahwee/dom2json)
-[![Coverage Status](https://coveralls.io/repos/github/kahwee/dom2json/badge.svg?branch=master)](https://coveralls.io/github/kahwee/dom2json?branch=master)
-[![npm version](https://badge.fury.io/js/dom2json.svg)](https://badge.fury.io/js/dom2json)
-[![bitHound Overall Score](https://www.bithound.io/github/kahwee/dom2json/badges/score.svg)](https://www.bithound.io/github/kahwee/dom2json)
+## Install
 
-## Support
-
-* Browser (tested on Firefox)
-* `xmldom`
-
-## What is sacrificed?
-
-In order for easy access to element node children, elements are grouped together.
-
-For example, the following XML:
-
-```xml
-<Drinks>
-  <Coffee>Latte</Coffee>
-  <Tea>Chai</Tea>
-  <Coffee>Mocha</Coffee>
-  <Coffee>Espresso</Coffee>
-  <Coffee>Flat White</Coffee>
-  <Tea>Mint</Tea>
-</Drinks>
+```sh
+npm install dom2json
 ```
 
-Gets converted to:
+Use any standards-compatible DOM implementation. Browsers provide `DOMParser` globally. In Node.js, `@xmldom/xmldom` is one option:
 
-```
-{
-  "document": {
-    "Drinks": {
-      "Coffee": [
-        { $value: "Latte" },
-        { $value: "Mocha" },
-        { $value: "Espresso" },
-        { $value: "Flat White" }
-      ],
-      "Tea": [
-        { $value: "Chai" },
-        { $value: "Mint" }
-      ]
-    }
-  }
-}
+```sh
+npm install @xmldom/xmldom
 ```
 
-So there are some information loss here. Please use with caution!
+## Usage
 
-## Usage example
+```ts
+import { DOMParser } from '@xmldom/xmldom'
+import dom2json from 'dom2json'
 
-```js
-// Optional:
-// const DOMParser = require('xmldom').DOMParser
+const document = new DOMParser().parseFromString(
+  `<?xml version="1.0" encoding="UTF-8"?>
+  <Drinks>
+    <Coffee>Latte</Coffee>
+    <Tea>Chai</Tea>
+    <Coffee>Mocha</Coffee>
+  </Drinks>`,
+  'text/xml',
+)
 
-const dp = new DOMParser()
-let xml = dp.parseFromString(`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-  <Hello one="1" two="2" three="3"><Hi class="a"><h1>Hello World</h1></Hi><Hi class="a">Hello again</Hi></Hello>`, 'text/xml')
-result = dom2json(xml)
+const result = dom2json(document)
 ```
 
-Results:
+Result:
 
 ```json
 {
-  "document":{
-    "Hello":{
-      "Hi":[
-        {
-          "h1":[
-            {
-              "$attrs": {
-              },
-              "$value": "Hello World"
-            }
-          ],
-          "$attrs":{
-            "class": "a"
-          },
-          "$value": "Hello World"
-        },
-        {
-          "$attrs":{
-            "class": "a"
-          },
-          "$value": "Hello again"
-        }
+  "$attrs": {
+    "version": "1.0",
+    "encoding": "UTF-8"
+  },
+  "document": {
+    "Drinks": {
+      "$attrs": {},
+      "Coffee": [
+        { "$attrs": {}, "$value": "Latte" },
+        { "$attrs": {}, "$value": "Mocha" }
       ],
-      "$attrs":{
-        "one":"1",
-        "two":"2",
-        "three":"3"
-      }
+      "Tea": [{ "$attrs": {}, "$value": "Chai" }]
     }
   }
 }
 ```
+
+## Output conventions
+
+- Element attributes are stored in `$attrs`.
+- A sole text child or CDATA section is stored in `$value`.
+- Repeated element names are grouped into arrays.
+- Comments are ignored.
+- XML declaration / processing-instruction attributes on the document are exposed as top-level `$attrs`.
+
+## API
+
+```ts
+import dom2json, {
+  childNodesToObject,
+  getAttributes,
+  getProcessingNodeAttributes,
+} from 'dom2json'
+```
+
+The package is ESM-only and ships TypeScript declarations and source maps.
+
+## Requirements
+
+- Node.js 22.18+ for development and tests.
+- The library itself has no runtime dependencies and can run in modern browsers.
+
+## License
+
+MIT
