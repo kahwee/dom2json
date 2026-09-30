@@ -75,11 +75,23 @@ import dom2json, {
 ```
 
 The package is ESM-only and ships TypeScript declarations and source maps.
+`dom2json` is also a named export. Input without exactly one root element
+returns an object with an `error` string instead of `document`.
 
 ## Requirements
 
 - Node.js 22.18+ for development and tests.
 - The library itself has no runtime dependencies and can run in modern browsers.
+
+## Development
+
+```sh
+npm ci
+npm run check
+```
+
+`check` runs typecheck, Biome lint/format checks, a build, and Node tests. CI
+uses Node 22 and 24; the library has no separate network or browser test harness.
 
 ## License
 
