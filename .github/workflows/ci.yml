@@ -20,4 +20,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
-      - run: npm run check
+      # npm test owns the build; the other checks do not emit files.
+      - parallel:
+          - name: Type check
+            run: npm run typecheck
+          - name: Lint
+            run: npm run lint
+          - name: Build and test
+            run: npm test
