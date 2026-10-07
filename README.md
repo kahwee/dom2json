@@ -96,3 +96,7 @@ uses Node 22 and 24; the library has no separate network or browser test harness
 ## License
 
 MIT
+
+## CI maintenance
+
+[GitHub Actions maintenance](.github/ACTIONS.md) covers workflows, parallel checks, action versions, and weekly updates.
