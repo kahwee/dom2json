@@ -4,23 +4,43 @@ Convert a DOM `Document` into a compact JSON representation. Repeated sibling el
 
 > This representation is intentionally lossy: sibling ordering is not preserved across different element names.
 
-## Install
+## Version status
+
+This README describes the unreleased 1.0.0 source on `master`.
+The published npm version is 0.2.3.
+
+## Install the published version
 
 ```sh
-npm install dom2json
+npm install dom2json@0.2.3
 ```
 
-Use any standards-compatible DOM implementation. Browsers provide `DOMParser` globally. In Node.js, `@xmldom/xmldom` is one option:
+Version 0.2.3 uses CommonJS. Its converter is available as
+`const dom2json = require('dom2json').default`; it does not include the
+TypeScript declarations or named helper exports documented below.
+
+## Try the current source
+
+Use Node.js 22.18 or newer:
 
 ```sh
-npm install @xmldom/xmldom
+git clone https://github.com/kahwee/dom2json.git
+cd dom2json
+npm ci
+npm run check
 ```
 
-## Usage
+This builds the current source into `dist` and runs the repository checks.
+The development dependencies include `@xmldom/xmldom`, used in the Node.js
+example below. Browsers provide `DOMParser` globally.
 
-```ts
+## Usage (current source)
+
+Run this JavaScript from a file in the repository root after building:
+
+```js
 import { DOMParser } from '@xmldom/xmldom'
-import dom2json from 'dom2json'
+import dom2json from './dist/index.js'
 
 const document = new DOMParser().parseFromString(
   `<?xml version="1.0" encoding="UTF-8"?>
@@ -64,17 +84,17 @@ Result:
 - Comments are ignored.
 - XML declaration / processing-instruction attributes on the document are exposed as top-level `$attrs`.
 
-## API
+## API (current source)
 
-```ts
+```js
 import dom2json, {
   childNodesToObject,
   getAttributes,
   getProcessingNodeAttributes,
-} from 'dom2json'
+} from './dist/index.js'
 ```
 
-The package is ESM-only and ships TypeScript declarations and source maps.
+The current source builds as ESM with TypeScript declarations and source maps.
 `dom2json` is also a named export. Input without exactly one root element
 returns an object with an `error` string instead of `document`.
 
